@@ -93,17 +93,48 @@ VertexOut VS(VertexIn vin)
 
 float4 PS(VertexOut pin) : SV_Target
 {
+    float4 diffuse = (0.0f, 0.0f, 0.0f, 0.0f);
     // Interpolating normal can unnormalize it, so renormalize it.
     pin.NormalW = normalize(pin.NormalW);
+    
+if (gDiffuseAlbedo.x <= 0.0f) {
+    diffuse.x = 0.4f;
+}
+else if (gDiffuseAlbedo.y <= 0.0f) {
+    diffuse.y = 0.4f;
+}
+else if (gDiffuseAlbedo.z <= 0.0f) {
+    diffuse.z = 0.4f;
+}
 
+if (gDiffuseAlbedo.x > 0.0f && gDiffuseAlbedo.x <= 0.5f) {
+    diffuse.x = 0.6f;
+}
+else if (gDiffuseAlbedo.y > 0.0f && gDiffuseAlbedo.y <= 0.5f) {
+    diffuse.y = 0.6f;
+}
+else if (gDiffuseAlbedo.z > 0.0f && gDiffuseAlbedo.z <= 0.5f) {
+    diffuse.z = 0.6f;
+}
+
+ if (gDiffuseAlbedo.x > 0.5f && gDiffuseAlbedo.x <= 1.0f) {
+    diffuse.x = 1.0f;
+}
+ else if (gDiffuseAlbedo.y > 0.5f && gDiffuseAlbedo.y <= 1.0f) {
+    diffuse.y = 1.0f;
+}
+ else if (gDiffuseAlbedo.z > 0.5f && gDiffuseAlbedo.z <= 1.0f) {
+    diffuse.z = 1.0f;
+}
+ diffuse.a = gDiffuseAlbedo.a;
     // Vector from point being lit to eye. 
     float3 toEyeW = normalize(gEyePosW - pin.PosW);
 
 	// Indirect lighting.
-    float4 ambient = gAmbientLight*gDiffuseAlbedo;
+    float4 ambient = gAmbientLight*diffuse;
 
     const float shininess = 1.0f - gRoughness;
-    Material mat = { gDiffuseAlbedo, gFresnelR0, shininess };
+    Material mat = { diffuse, gFresnelR0, shininess };
     float3 shadowFactor = 1.0f;
     float4 directLight = ComputeLighting(gLights, mat, pin.PosW, 
         pin.NormalW, toEyeW, shadowFactor);

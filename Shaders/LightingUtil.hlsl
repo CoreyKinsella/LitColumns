@@ -55,6 +55,38 @@ float3 BlinnPhong(float3 lightStrength, float3 lightVec, float3 normal, float3 t
     // doing LDR rendering.  So scale it down a bit.
     specAlbedo = specAlbedo / (specAlbedo + 1.0f);
 
+    if (specAlbedo.x > 0.0f && specAlbedo.x <= 0.1f) {
+        specAlbedo.x = 0.0f;
+    }
+    if (specAlbedo.y > 0.0f && specAlbedo.y <= 0.1f) {
+        specAlbedo.y = 0.0f;
+    }
+    if (specAlbedo.z > 0.0f && specAlbedo.z <= 0.1f) {
+        specAlbedo.z = 0.0f;
+    }
+
+    else if (specAlbedo.x > 0.1f && specAlbedo.x <= 0.8f) {
+        specAlbedo.x = 0.5f;
+    }
+     if (specAlbedo.y > 0.1f && specAlbedo.y <= 0.8f) {
+        specAlbedo.y = 0.5f;
+    }
+     if (specAlbedo.z > 0.1f && specAlbedo.z <= 0.8f) {
+        specAlbedo.z = 0.5f;
+    }
+    
+
+    else if (specAlbedo.x> 0.8f && specAlbedo.x <= 1.0f) {
+        specAlbedo.x = 0.8f;
+    }
+     if (specAlbedo.y > 0.8f && specAlbedo.y <= 1.0f) {
+         specAlbedo.y = 0.8f;
+     }
+     if (specAlbedo.z > 0.8f && specAlbedo.z <= 1.0f) {
+         specAlbedo.z = 0.8f;
+     }
+     
+
     return (mat.DiffuseAlbedo.rgb + specAlbedo) * lightStrength;
 }
 
