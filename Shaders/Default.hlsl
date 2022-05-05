@@ -100,28 +100,26 @@ float4 PS(VertexOut pin) : SV_Target
 if (gDiffuseAlbedo.x <= 0.0f) {
     diffuse.x = 0.4f;
 }
-else if (gDiffuseAlbedo.y <= 0.0f) {
-    diffuse.y = 0.4f;
-}
-else if (gDiffuseAlbedo.z <= 0.0f) {
-    diffuse.z = 0.4f;
-}
-
-if (gDiffuseAlbedo.x > 0.0f && gDiffuseAlbedo.x <= 0.5f) {
+else if (gDiffuseAlbedo.x > 0.0f && gDiffuseAlbedo.x <= 0.5f) {
     diffuse.x = 0.6f;
+}
+if (gDiffuseAlbedo.x > 0.5f && gDiffuseAlbedo.x <= 1.0f) {
+    diffuse.x = 1.0f;
+}
+if (gDiffuseAlbedo.y <= 0.0f) {
+    diffuse.y = 0.4f;
 }
 else if (gDiffuseAlbedo.y > 0.0f && gDiffuseAlbedo.y <= 0.5f) {
     diffuse.y = 0.6f;
 }
+else if (gDiffuseAlbedo.y > 0.5f && gDiffuseAlbedo.y <= 1.0f) {
+    diffuse.y = 1.0f;
+}
+if (gDiffuseAlbedo.z <= 0.0f) {
+    diffuse.z = 0.4f;
+}
 else if (gDiffuseAlbedo.z > 0.0f && gDiffuseAlbedo.z <= 0.5f) {
     diffuse.z = 0.6f;
-}
-
- if (gDiffuseAlbedo.x > 0.5f && gDiffuseAlbedo.x <= 1.0f) {
-    diffuse.x = 1.0f;
-}
- else if (gDiffuseAlbedo.y > 0.5f && gDiffuseAlbedo.y <= 1.0f) {
-    diffuse.y = 1.0f;
 }
  else if (gDiffuseAlbedo.z > 0.5f && gDiffuseAlbedo.z <= 1.0f) {
     diffuse.z = 1.0f;
