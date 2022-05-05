@@ -429,7 +429,7 @@ void LitColumnsApp::UpdateMainPassCB(const GameTimer& gt)
 	mMainPassCB.DeltaTime = gt.DeltaTime();
 	mMainPassCB.AmbientLight = { 0.25f, 0.25f, 0.35f, 1.0f };
 	mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
-	mMainPassCB.Lights[0].Strength = { 0.6f, 0.6f, 0.6f };
+	mMainPassCB.Lights[0].Strength = { 1.0f * sin(gt.TotalTime()), 0.6f, 0.6f };
 	mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
 	mMainPassCB.Lights[1].Strength = { 0.3f, 0.3f, 0.3f };
 	mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
@@ -735,7 +735,7 @@ void LitColumnsApp::BuildMaterials()
 	bricks0->DiffuseSrvHeapIndex = 0;
 	bricks0->DiffuseAlbedo = XMFLOAT4(Colors::ForestGreen);
 	bricks0->FresnelR0 = XMFLOAT3(0.02f, 0.02f, 0.02f);
-	bricks0->Roughness = 0.1f;
+	bricks0->Roughness = 1.0f;
 
 	auto stone0 = std::make_unique<Material>();
 	stone0->Name = "stone0";
@@ -743,7 +743,7 @@ void LitColumnsApp::BuildMaterials()
 	stone0->DiffuseSrvHeapIndex = 1;
 	stone0->DiffuseAlbedo = XMFLOAT4(Colors::LightSteelBlue);
 	stone0->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05f);
-	stone0->Roughness = 0.3f;
+	stone0->Roughness = 1.0f;
  
 	auto tile0 = std::make_unique<Material>();
 	tile0->Name = "tile0";
@@ -751,7 +751,7 @@ void LitColumnsApp::BuildMaterials()
 	tile0->DiffuseSrvHeapIndex = 2;
 	tile0->DiffuseAlbedo = XMFLOAT4(Colors::LightGray);
 	tile0->FresnelR0 = XMFLOAT3(0.02f, 0.02f, 0.02f);
-	tile0->Roughness = 0.2f;
+	tile0->Roughness = 1.0f;
 
 	auto skullMat = std::make_unique<Material>();
 	skullMat->Name = "skullMat";
@@ -759,7 +759,7 @@ void LitColumnsApp::BuildMaterials()
 	skullMat->DiffuseSrvHeapIndex = 3;
 	skullMat->DiffuseAlbedo = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	skullMat->FresnelR0 = XMFLOAT3(0.05f, 0.05f, 0.05);
-	skullMat->Roughness = 0.3f;
+	skullMat->Roughness = 1.0f;
 	
 	mMaterials["bricks0"] = std::move(bricks0);
 	mMaterials["stone0"] = std::move(stone0);
